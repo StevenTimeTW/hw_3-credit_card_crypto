@@ -1,7 +1,6 @@
 
 
 
-require 'matrix'
 require_relative 'double_trans_cipher'
 
 document = "Soumya Ray"

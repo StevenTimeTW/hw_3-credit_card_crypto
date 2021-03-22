@@ -1,19 +1,19 @@
 module DoubleTranspositionCipher
-  def row_swap(matrix,i,j)
+  def self.row_swap(matrix,i,j)
     matrix[i], matrix[j] = matrix[j], matrix[i]
     matrix
   end
 
-  def col_swap(matrix,i,j)
+  def self.col_swap(matrix,i,j)
     matrix.each { |row| row[i], row[j] = row[j], row[i]}
   end
 
   def self.encrypt(document, key)
     # TODO: FILL THIS IN!
     ## Suggested steps for double transposition cipher
-    
+
     # 1. find number of rows/cols such that matrix is almost square
-    col_num_matrix = Math.sqrt(document.length).ceil
+    col_num_matrix = Math.sqrt(document.to_s.length).ceil
     # 2. break plaintext into evenly sized blocks
     matrix = document.to_s.chars
                 .each_slice(col_num_matrix)
@@ -29,12 +29,11 @@ module DoubleTranspositionCipher
     matrix = col_swap(matrix,col_swap_key[0],col_swap_key[1])
     # 5. return joined cyphertext
     encrpted_document = matrix.join
-    encrpted_document
   end
 
   def self.decrypt(ciphertext, key)
     # TODO: FILL THIS IN!
-    col_num_matrix = Math.sqrt(ciphertext.length).ceil
+    col_num_matrix = Math.sqrt(ciphertext.to_s.length).ceil
 
     de_matrix = ciphertext.to_s.chars
                           .each_slice(col_num_matrix)
@@ -45,8 +44,6 @@ module DoubleTranspositionCipher
     col_swap_key = Array.new(2){ rand(0..de_matrix[0].length-1)}
     de_matrix = col_swap(de_matrix,col_swap_key[1],col_swap_key[0])
     de_matrix = row_swap(de_matrix,row_swap_key[1],row_swap_key[0])
-
     decrpted_document = de_matrix.join.strip
-    decrpted_document
   end
 end

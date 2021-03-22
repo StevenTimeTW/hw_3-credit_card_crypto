@@ -21,7 +21,6 @@ module SubstitutionCipher
       document.to_s.chars
               .map { |i| (i.ord - key).chr }
               .join
-
     end
   end
 
