@@ -5,7 +5,7 @@ require 'matrix'
 require_relative 'double_trans_cipher'
 
 document = "Soumya Ray"
-key = 3
+key = 5
 
 # Build the matrix close to square matrix
 number_of_matrix = Math.sqrt(document.length).ceil
@@ -52,5 +52,16 @@ print de_matrix
 decrpted_document = de_matrix.join.strip
 puts "",decrpted_document
 
-puts en = DoubleTranspositionCipher.encrypt("Soumya Ray",1)
-puts de = DoubleTranspositionCipher.decrypt(en,1)
+puts "-----------"
+
+puts en = DoubleTranspositionCipher.encrypt('4916603231464963',key)
+puts de = DoubleTranspositionCipher.decrypt(en,key)
+
+puts en = DoubleTranspositionCipher.encrypt('Mar-30-2020',key)
+puts de = DoubleTranspositionCipher.decrypt(en,key)
+
+puts en = DoubleTranspositionCipher.encrypt('Visa',key)
+puts de = DoubleTranspositionCipher.decrypt(en,key)
+
+puts en = DoubleTranspositionCipher.encrypt('Soumya Ray',key)
+puts de = DoubleTranspositionCipher.decrypt(en,key)
