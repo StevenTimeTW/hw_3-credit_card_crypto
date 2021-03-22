@@ -2,6 +2,8 @@
 
 require_relative '../credit_card'
 require_relative '../substitution_cipher'
+require_relative '../double_trans_cipher'
+
 require 'minitest/autorun'
 
 describe 'Test card info encryption' do
@@ -41,4 +43,6 @@ describe 'Test card info encryption' do
 
   # TODO: Add tests for double transposition and modern symmetric key ciphers
   #       Can you DRY out the tests using metaprogramming? (see lecture slide)
+
+
 end

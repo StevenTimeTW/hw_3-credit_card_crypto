@@ -1,4 +1,13 @@
 module DoubleTranspositionCipher
+  def row_swap(matrix,i,j)
+    matrix[i], matrix[j] = matrix[j], matrix[i]
+    matrix
+  end
+
+  def col_swap(matrix,i,j)
+    matrix.each { |row| row[i], row[j] = row[j], row[i]}
+  end
+
   def self.encrypt(document, key)
     # TODO: FILL THIS IN!
     ## Suggested steps for double transposition cipher
@@ -9,31 +18,34 @@ module DoubleTranspositionCipher
     # 5. return joined cyphertext
 
     col_num_matrix = Math.sqrt(document.length).ceil
-    matrix = document.chars
+    matrix = document.to_s.chars
                 .each_slice(col_num_matrix)
                 .to_a
-                .tap{ |i| i.last.fill(" ", i.last.length, number_of_matrix - i.last.length) }
-
-    def row_swap(matrix,i,j)
-      matrix[i], matrix[j] = matrix[j], matrix[i]
-      matrix
-    end
-
-    def col_swap(matrix,i,j)
-      matrix.each { |row| row[i], row[j] = row[j], row[i]}
-    end
-
+                .tap{ |i| i.last.fill(" ", i.last.length, col_num_matrix - i.last.length) }
     Kernel.srand(key)
     row_swap_key = Array.new(2){ rand(0..matrix.length-1)}
     Kernel.srand(key)
     col_swap_key = Array.new(2){ rand(0..matrix[0].length-1)}
     matrix = row_swap(matrix,row_swap_key[0],row_swap_key[1])
     matrix = col_swap(matrix,col_swap_key[0],col_swap_key[1])
-    matrix.join
-    
+    encrpted_document = matrix.join
+    encrpted_document
   end
 
   def self.decrypt(ciphertext, key)
     # TODO: FILL THIS IN!
+    col_num_matrix = Math.sqrt(ciphertext.length).ceil
+
+    de_matrix = ciphertext.to_s.chars
+                          .each_slice(col_num_matrix)
+                          .to_a
+    Kernel.srand(key)
+    row_swap_key = Array.new(2){ rand(0..de_matrix.length-1)}
+    Kernel.srand(key)
+    col_swap_key = Array.new(2){ rand(0..de_matrix[0].length-1)}
+    de_matrix = col_swap(de_matrix,col_swap_key[1],col_swap_key[0])
+    de_matrix = row_swap(de_matrix,row_swap_key[1],row_swap_key[0])
+    decrpted_document = de_matrix.join.strip
+    decrpted_document
   end
 end
